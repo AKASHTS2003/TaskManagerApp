@@ -1,0 +1,8 @@
+<h1><%= @task.name %></h1>
+<h1><%= @task.deadline %></h1>
+<h1><%= @task.description %></h1>
+<h1><%= @task.status %></h1>
+
+<%= link_to "Back", tasks_path %>
+<%= link_to "Edit", edit_task_path(@task) %>
+<%= button_to "Delete", @task, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
