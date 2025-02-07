@@ -1,42 +1,115 @@
-<h1>Tasks</h1>
+<%= link_to "New Task", new_task_path, class: "btn btn-primary mb-3" %>
 
-<%= link_to "New Task", new_task_path %>
+<!-- Task Summary Section -->
+<div class="task-status-container d-flex justify-content-between">
+  <div class="task-status-card card text-center shadow-sm">
+    <h3>Upcoming Tasks</h3>
+    <p class="count"><%= @upcoming_tasks.count %></p>
+  </div>
 
-<div id="tasks">
-  <% @tasks.each do |task| %>
-    <% if task.deadline < Date.today %>
-      <!-- Unfinished Task (Past Deadline) -->
-      <div style="border: 2px solid red; padding: 10px; margin: 5px;">
-        <br>
-        <strong>Name:</strong> <%= link_to task.name, task %> - <%= task.created_at %>
-        <br>
-        <strong>Deadline:</strong> <%= task.deadline %> (Unfinished)
-        <br><br>
-      </div>
-    <% else %>
-      <!-- Normal Task -->
-      <div style="padding: 10px; margin: 5px;">
-        <br>
-        <strong>Name:</strong> <%= link_to task.name, task %> - <%= task.created_at %>
-        <br>
-        <strong>Deadline:</strong> <%= task.deadline %>
-        <br><br>
-      </div>
-    <% end %>
-  <% end %>
+  <div class="task-status-card card text-center shadow-sm">
+    <h3>Progress Tasks</h3>
+    <p class="count"><%= @progress_tasks.count %></p>
+  </div>
+
+  <div class="task-status-card card text-center shadow-sm">
+    <h3>Pending Tasks</h3>
+    <p class="count"><%= @pending_tasks.count %></p>
+  </div>
 </div>
 
-<u><b>Upcoming Tasks</b></u>
-<br>
+<!-- Task Filter -->
+<div class="task-filter mt-3">
+  <label for="task-status" class="form-label">Filter by Status:</label>
+  <select id="task-status" class="form-select">
+    <option value="all" <%= "selected" if params[:status] == "all" || params[:status].blank? %>>All</option>
+    <option value="open" <%= "selected" if params[:status] == "open" %>>Open</option>
+    <option value="inprogress" <%= "selected" if params[:status] == "inprogress" %>>In Progress</option>
+    <option value="completed" <%= "selected" if params[:status] == "completed" %>>Completed</option>
+  </select>
+</div>
 
-<div id="upcoming_tasks">
-  <% @upcoming_tasks.each do |task| %>
-    <div>
-      <br>
-      <strong>Name:</strong> <%= link_to task.name, task %>
-      <br>
-      <strong>Deadline:</strong> <%= task.deadline %>
-      <br><br>
+<div class="task-filter mt-3">
+  <span>Filter by Status:</span>
+  <ul>
+    <li>
+      <%= link_to "All", tasks_path(status: "all"), class: ("fw-bold text-primary" if params[:status] == "all" || params[:status].blank?) %>
+    </li>
+    <li>
+      <%= link_to "Open", tasks_path(status: "open"), class: ("fw-bold text-primary" if params[:status] == "open") %>
+    </li>
+    <li>
+      <%= link_to "In Progress", tasks_path(status: "inprogress"), class: ("fw-bold text-primary" if params[:status] == "inprogress") %>
+    </li>
+    <li>
+      <%= link_to "Completed", tasks_path(status: "completed"), class: ("fw-bold text-primary" if params[:status] == "completed") %>
+    </li>
+  </ul>
+</div>
+
+
+<script>
+  document.getElementById("task-status").addEventListener("change", function() {
+    var selectedStatus = this.value;
+    var url = new URL(window.location.href);
+    url.searchParams.set("status", selectedStatus);
+    window.location.href = url.toString();
+  });
+
+  // Show popup if no tasks are found
+  document.addEventListener("DOMContentLoaded", function() {
+    var tasksContainer = document.querySelector(".tasks-container");
+    if (!tasksContainer || tasksContainer.children.length === 0) {
+      alert("No tasks found for the selected filter.");
+    }
+  });
+</script>
+
+<!-- Task List -->
+<div class="task-table-card card shadow-sm mt-4">
+  <div class="card-body">
+    <h2 class="card-title">Main Projects</h2>
+
+    <div class="tasks-container">
+      <% if @tasks.any? %>
+        <% @tasks.each do |task| %>
+          <div class="task-card row align-items-center shadow-sm p-3 mb-3 rounded bg-white">
+            
+            <!-- Task Name -->
+            <div class="col-md-3">
+              <h5 class="fw-bold"><%= link_to task.name, task %></h5>
+            </div>
+
+            <!-- Due Date -->
+            <div class="col-md-3 text-center">
+              <p class="mb-0"><i class="bi bi-calendar-event text-primary"></i> <strong>Due:</strong> <%= task.deadline %></p>
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-3 text-center">
+              <span class="task-status <%= task.status %> px-3 py-1 rounded-pill">
+                <%= task.status.capitalize %>
+              </span>
+            </div>
+
+            <!-- Edit & Delete Buttons -->
+            <div class="col-md-3 text-end">
+              <%= link_to edit_task_path(task), class: "btn btn-sm btn-outline-primary me-2" do %>
+                <i class="bi bi-pencil"></i> Edit
+              <% end %>
+
+              <%= link_to task, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" do %>
+                <i class="bi bi-trash"></i> Delete
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- No Results Message -->
+        <div class="alert alert-warning text-center">
+          <i class="bi bi-exclamation-circle"></i> No tasks found for "<%= params[:status] %>".
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

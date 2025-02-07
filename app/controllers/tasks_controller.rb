@@ -1,8 +1,24 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy]
+  before_action :set_task, only: %i[show edit update destroy]
+
   def index
     @tasks = Task.order(created_at: :desc)
-    @upcoming_tasks = Task.where("deadline >= ?", Date.today).order(deadline: :asc).limit(3)
+
+    # Apply search filter
+    if params[:query].present?
+      search_query = "%#{params[:query]}%"
+      @tasks = @tasks.where("name LIKE ? OR description LIKE ?", search_query, search_query)
+    end
+
+    # Filter tasks based on status
+    if params[:status].present? && params[:status] != "all"
+      @tasks = @tasks.where(status: params[:status])
+    end
+
+    # Task Summary Counts
+    @upcoming_tasks = Task.where(status: "open")
+    @progress_tasks = Task.where(status: "inprogress")
+    @pending_tasks = Task.where("deadline < ?", Date.today).where(status: ["open", "inprogress"])
   end
 
   def show
@@ -38,12 +54,12 @@ class TasksController < ApplicationController
   end
 
   private
+
   def set_task
     @task = Task.find(params[:id])
   end
 
-    def task_params
-      params.expect(task: [ :name , :deadline , :description , :status])
-    end
-
+  def task_params
+    params.require(:task).permit(:name, :deadline, :description, :status)
+  end
 end
