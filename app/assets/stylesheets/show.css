@@ -1,0 +1,86 @@
+/* Scope styles only to .task-show-page */
+.task-show-page .task-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.task-show-page .task-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    width: 50%;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.task-show-page .task-card:hover {
+    transform: scale(1.02);
+}
+
+.task-show-page .task-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.task-show-page .task-info p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.task-show-page .task-description {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.task-show-page .task-date {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.task-show-page .task-status {
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.task-show-page .task-status.open {
+    background-color: red;
+    color: white;
+}
+
+.task-show-page .task-status.inprogress {
+    background-color: yellow;
+    color: black;
+}
+
+.task-show-page .task-status.completed {
+    background-color: green;
+    color: white;
+}
+
+/* Task Action Buttons */
+.task-show-page .task-actions {
+    margin-top: 20px;
+}
+
+.task-show-page .task-actions .btn {
+    margin: 5px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.2s ease-in-out;
+}
+
+.task-show-page .task-actions .btn:hover {
+    opacity: 0.8;
+}
