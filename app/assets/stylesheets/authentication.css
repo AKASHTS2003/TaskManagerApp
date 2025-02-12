@@ -3,24 +3,32 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f6f9;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #333;
 }
 
 .auth-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Changed from center to flex-start to move it higher */
     height: 100vh;
+    padding-top: 10vh; /* Added padding to move it down slightly from the top */
+    box-sizing: border-box;
 }
 
 .card {
     width: 100%;
-    max-width: 400px; /* Limiting max width */
+    max-width: 400px;
     padding: 30px;
     background-color: #fff;
-    border-radius: 10px; /* Rounded corners for a sleek look */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .card h2 {
@@ -28,27 +36,40 @@ html, body {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .card .form-label {
     font-weight: 500;
     font-size: 14px;
+    color: #555;
 }
 
 .card .form-control {
     border-radius: 8px;
     border: 1px solid #ddd;
     padding: 12px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.card .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .card .input-group-text {
     background-color: #f1f1f1;
     border: 1px solid #ddd;
     border-right: 0;
-}
-
-.card .input-group .form-control {
-    border-left: 0;
+    color: #666;
 }
 
 .card .btn {
@@ -56,6 +77,8 @@ html, body {
     padding: 14px;
     border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .card .btn-primary {
@@ -80,15 +103,17 @@ html, body {
 
 .card .text-muted {
     font-size: 14px;
+    color: #666;
 }
 
 .card .text-center a {
     font-weight: bold;
     color: #007bff;
+    text-decoration: none;
 }
 
-.card .mb-3 {
-    margin-bottom: 1.5rem;
+.card .text-center a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive design for smaller screens */

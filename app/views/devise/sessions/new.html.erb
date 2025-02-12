@@ -1,7 +1,8 @@
-<div class="auth-container d-flex justify-content-center align-items-center vh-100">
+<div class="auth-container d-flex justify-content-center align-items-center vh-1000">
   <div class="card shadow-lg p-4 rounded-3" style="max-width: 400px; width: 100%;">
-    <h2 class="text-center fw-bold mb-4">Log in</h2>
-    
+    <h2 class="text-center fw-bold mb-4">Welcome Back!</h2>
+    <p class="text-center text-muted mb-4">Log in to continue to your account.</p>
+
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -10,7 +11,7 @@
         <%= f.label :email, class: "form-label" %>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Enter your email" %>
         </div>
       </div>
 
@@ -19,7 +20,7 @@
         <%= f.label :password, class: "form-label" %>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-lock"></i></span>
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Enter your password" %>
         </div>
       </div>
 
