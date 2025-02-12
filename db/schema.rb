@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_07_064843) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_032721) do
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -18,6 +18,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_064843) do
     t.date "deadline"
     t.text "description"
     t.integer "status", default: 0
+    t.string "summary"
+    t.string "organizer_email"
+    t.text "attendees_emails"
+    t.string "location"
+    t.string "time_zone"
+    t.string "start_time"
+    t.string "end_time"
+    t.string "meeting_date"
+    t.boolean "recurring"
+    t.string "recurrence_frequency"
+    t.integer "recurrence_count"
   end
 
   create_table "users", force: :cascade do |t|

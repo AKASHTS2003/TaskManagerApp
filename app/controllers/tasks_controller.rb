@@ -19,10 +19,19 @@ class TasksController < ApplicationController
     # Task Summary Counts
     @upcoming_tasks = Task.where(status: "open")
     @progress_tasks = Task.where(status: "inprogress")
-    @pending_tasks = Task.where("deadline < ?", Date.today).where(status: ["open", "inprogress"])
+    @pending_tasks = Task.where("deadline < ?", Date.today).where(status: [ "open", "inprogress" ])
+
+    respond_to do |format|
+      format.html { render :index } # Ensure HTML format is handled
+      format.json { render json: @tasks, status: :ok }
+    end
   end
 
   def show
+    respond_to do |format|
+      format.html { render :index } # Ensure HTML format is handled
+      format.json { render json: @task, status: :ok }
+    end
   end
 
   def new
