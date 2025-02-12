@@ -9,7 +9,7 @@ class Task < ApplicationRecord
         inprogress: 1, 
         completed: 2 
     }
-
+    #Assign user email to task
     belongs_to :user, optional: true
 
 end
