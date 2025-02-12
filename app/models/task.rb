@@ -10,4 +10,6 @@ class Task < ApplicationRecord
         completed: 2 
     }
 
+    belongs_to :user, optional: true
+
 end

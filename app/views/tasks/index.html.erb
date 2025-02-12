@@ -1,3 +1,25 @@
+<!-- Holidays Section Below Navbar -->
+<div class="holidays-container mt-4">
+  <h4>Current Month Holidays</h4>
+  <% if @holidays.present? && @holidays.any? %>
+    <div class="d-flex flex-wrap">
+      <% @holidays.each do |holiday| %>
+        <div class="holiday-card card shadow-sm m-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= holiday["name"] %></h5>
+            <p class="card-text">
+              <strong>Date:</strong> <%= holiday["date"]["iso"] %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No holidays found for this month.</p>
+  <% end %>
+</div>
+
+
 <%= link_to "New Task", new_task_path, class: "btn btn-primary mb-3" %>
 
 <!-- Task Summary Section -->
@@ -47,24 +69,6 @@
   </ul>
 </div>
 
-
-<script>
-  document.getElementById("task-status").addEventListener("change", function() {
-    var selectedStatus = this.value;
-    var url = new URL(window.location.href);
-    url.searchParams.set("status", selectedStatus);
-    window.location.href = url.toString();
-  });
-
-  // Show popup if no tasks are found
-  document.addEventListener("DOMContentLoaded", function() {
-    var tasksContainer = document.querySelector(".tasks-container");
-    if (!tasksContainer || tasksContainer.children.length === 0) {
-      alert("No tasks found for the selected filter.");
-    }
-  });
-</script>
-
 <!-- Task List -->
 <div class="task-table-card card shadow-sm mt-4">
   <div class="card-body">
@@ -79,6 +83,10 @@
             <div class="col-md-3">
               <h5 class="fw-bold"><%= link_to task.name, task %></h5>
             </div>
+            <!-- Display Assigned User -->
+            <div class="col-md-3 text-center">
+              <p class="mb-0"><i class="bi bi-person text-primary"></i> <strong>Assigned To:</strong> <%= task.user&.email || "Unassigned" %></p>
+            </div>
 
             <!-- Due Date -->
             <div class="col-md-3 text-center">
@@ -86,14 +94,14 @@
             </div>
 
             <!-- Status -->
-            <div class="col-md-3 text-center">
+            <div class="col-md-2 text-center">
               <span class="task-status <%= task.status %> px-3 py-1 rounded-pill">
                 <%= task.status.capitalize %>
               </span>
             </div>
 
-            <!-- Edit & Delete Buttons -->
-            <div class="col-md-3 text-end">
+            <!-- Edit & Delete Buttons (Aligned Right) -->
+            <div class="col-md-1 text-end">
               <%= link_to edit_task_path(task), class: "btn btn-sm btn-outline-primary me-2" do %>
                 <i class="bi bi-pencil"></i> Edit
               <% end %>
@@ -113,3 +121,4 @@
     </div>
   </div>
 </div>
+

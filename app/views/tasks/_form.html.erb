@@ -10,26 +10,38 @@
     </div>
   <% end %>
 
+  <!-- Task Name -->
   <div class="mb-3">
     <%= form.label :name, class: "form-label fw-bold" %>
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
+  <!-- Task Description -->
   <div class="mb-3">
     <%= form.label :description, class: "form-label fw-bold" %>
     <%= form.text_area :description, class: "form-control", rows: 4 %>
   </div>
 
+  <!-- Task Deadline -->
   <div class="mb-3">
     <%= form.label :deadline, class: "form-label fw-bold" %>
     <%= form.date_field :deadline, min: Date.today, class: "form-control" %>
   </div>
 
+  <!-- Task Status -->
   <div class="mb-3">
     <%= form.label :status, class: "form-label fw-bold" %>
     <%= form.select :status, Task.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "form-select" %>
   </div>
 
+  <!-- Assign User -->
+  <div class="mb-3">
+    <%= form.label :user_id, "Assign User", class: "form-label fw-bold" %>
+    <%= form.collection_select :user_id, User.all, :id, :email, { prompt: "Select a User" }, class: "form-select" %>
+  </div>
+
+
+  <!-- Submit and Cancel Buttons -->
   <div class="d-flex justify-content-between">
     <%= form.submit "Save Task", class: "btn btn-primary" %>
     <%= link_to "Cancel", tasks_path, class: "btn btn-secondary" %>

@@ -8,6 +8,9 @@
         <p><strong>Description:</strong></p>
         <p class="task-description"><%= @task.description %></p>
         <p><strong>Status:</strong> <span class="task-status <%= @task.status %>"><%= @task.status.capitalize %></span></p>
+        
+        <!-- Assigned User -->
+        <p><strong>Assigned To:</strong> <span class="task-assigned-user"><%= @task.user.present? ? @task.user.email : 'No user assigned' %></span></p>
       </div>
 
       <div class="task-actions">
