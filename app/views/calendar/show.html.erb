@@ -1,0 +1,48 @@
+<h1>Calendar</h1>
+
+<div id="calendar"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    if (!calendarEl) {
+      console.error("Calendar div not found!");
+      return;
+    }
+
+    var events = [
+      <% @holidays.each do |holiday| %>
+        {
+          title: "<%= holiday['name'] %>",
+          start: "<%= holiday['date']['iso'] %>",
+          color: 'red'
+        },
+      <% end %>
+
+      <% @tasks.each do |task| %>
+        <% if task.start_time.present? %>
+          {
+            title: "<%= task.name %>",
+            start: "<%= task.start_time.iso8601 %>",
+            <%= "end: '#{task.end_time.iso8601}'," if task.end_time.present? %>
+            color: 'blue'
+          },
+        <% end %>
+      <% end %>
+    ];
+
+    console.log("Calendar events:", events); // Debugging
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: events.filter(event => event.start), // Ensure only valid events are added
+      dateClick: function(info) {
+        alert('Date clicked: ' + info.dateStr);
+      }
+    });
+
+    calendar.render();
+  });
+</script>
+

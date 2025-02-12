@@ -5,6 +5,9 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.order(created_at: :desc)
 
+    # Fetch holidays for the current month using the HolidayService
+    @holidays = HolidayService.fetch_holidays
+
     # Apply search filter
     if params[:query].present?
       search_query = "%#{params[:query]}%"
@@ -29,7 +32,7 @@ class TasksController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { render :index } # Ensure HTML format is handled
+      format.html { render :show } # Ensure HTML format is handled
       format.json { render json: @task, status: :ok }
     end
   end
@@ -63,6 +66,32 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
+  # New action to provide task data in JSON format for the calendar
+  def calendar_data
+    tasks = Task.where("start_time IS NOT NULL AND end_time IS NOT NULL") # Ensure we have valid times
+    events = tasks.map do |task|
+      {
+        title: task.name,
+        start: task.start_time,    # Ensure your tasks have start_time and end_time attributes
+        end: task.end_time,
+        description: task.description,
+        status: task.status
+      }
+    end
+    render json: events
+  end
+
+  # This function determines what color the task will have in the calendar
+  def get_task_color(task)
+    if task.recurring
+      "#FF5733"  # For recurring tasks, orange color
+    elsif task.priority == "high"
+      "#FF0000"  # For high-priority tasks, red color
+    else
+      "#00FF00"  # For regular tasks, green color
+    end
+  end
+
   private
 
   def set_task
@@ -70,6 +99,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :deadline, :description, :status)
-  end
+    params.require(:task).permit(:name, :deadline, :description, :status, :start_time, :end_time, :user_id)
+  end  
 end
