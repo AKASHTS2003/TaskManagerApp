@@ -17,6 +17,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'net-smtp', '0.5.0'
+
 # Gemfile
 gem 'fullcalendar-rails'
 gem 'httparty'
