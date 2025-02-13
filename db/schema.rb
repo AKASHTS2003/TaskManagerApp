@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_02_12_091526) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -29,7 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_091526) do
     t.boolean "recurring"
     t.string "recurrence_frequency"
     t.integer "recurrence_count"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
