@@ -1,18 +1,19 @@
-```markdown
 # TaskManagerApp
 
 A simple and efficient task management web application built with **Ruby on Rails**. It provides **CRUD functionality**, **user authentication**, and an **enhanced UI with Bootstrap**. The application also includes **API integration** and supports external data handling.
 
+---
+
 ## 🚀 Features
 
-- **User Authentication**: Implemented using Devise for secure login/logout.
-- **Task Management**: Create, update, delete, and view tasks.
-- **Priority-Based Styling**: High-priority tasks appear in red, while low-priority tasks are green.
-- **Bootstrap UI**: A modern, responsive design with enhanced forms and buttons.
-- **Task Assignment**: Assign users to tasks via a dropdown menu.
-- **Calendar View**: View tasks in a calendar format.
-- **API Endpoints**: Fetch and manipulate tasks through API requests.
-
+- User authentication using Devise
+- Task creation, editing, updating, and deletion
+- Priority-based task styling (high-priority tasks in red, low-priority in green)
+- Bootstrap-enhanced UI for better design
+- Assign users to tasks via a dropdown
+- Calendar view for task scheduling
+- API endpoints for task management
+- 
 ---
 
 ## 📦 Installation
