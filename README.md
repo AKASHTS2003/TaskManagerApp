@@ -1,5 +1,3 @@
-Here's a well-structured and professional README for your **TaskManagerApp** repository:  
-
 ```markdown
 # TaskManagerApp
 
