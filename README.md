@@ -13,7 +13,7 @@ A simple and efficient task management web application built with **Ruby on Rail
 - Assign users to tasks via a dropdown
 - Calendar view for task scheduling
 - API endpoints for task management
-- 
+  
 ---
 
 ## 📦 Installation
