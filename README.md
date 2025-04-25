@@ -77,11 +77,6 @@ rspec
 
 ---
 
-## 🚀 Deployment
-
-Deployed on **Render**: [Live Demo](https://mysite-qytx.onrender.com/)  
-
----
 
 ## 🤝 Contributing
 
